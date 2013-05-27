@@ -1,4 +1,4 @@
-Tasmin
+Auto-renamer
 ======
 
-Tasmin's cool website
+Super-boring
