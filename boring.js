@@ -104,38 +104,6 @@ function minmax_ratio (x, y) {
     }
 }
 
-
-function elem(data) {
-    return {
-    next: null,
-    prev: null,
-    data: data
-    };
-}
-
-function linked_list () {
-    this.head = null;
-}
-
-linked_list.prototype.prepend = function (data) {
-    var curr = elem(data);
-    curr.next = this.head;
-    if(this.head) {
-        this.head.prev = curr;
-    };
-    this.head = curr;
-    return this;
-};
-
-linked_list.prototype.delete = function (elem) {
-    if(elem.prev){
-        elem.prev.next = elem.next;
-    };
-    if(elem.next) {
-        elem.next.prev = elem.prev;
-    };
-};
-
 function newLine(grid_size, ratio, mratio, animate_layer) {
     var line;
     if(Math.random() <= mratio) {
@@ -195,3 +163,83 @@ function info(text_box, text, layer) {
     text_box.on('mouseleave', function() {document.body.style.cursor = "";});
     return text_box;
 };
+
+function make_info (box, text) {
+    x = box.getX() + box.getWidth()/2;
+    y = box.getY() + 2*grid_size;
+    if(undefined === info_layer.get(".init")[0]) {
+      info_layer.setX(x - info_layer.getWidth()/2);
+      info_layer.setY(animate_layer.getHeight() + 10);
+      var tween = new Kinetic.Tween({
+        node: info_layer,
+        y: y - info_layer.getHeight(),
+        duration: 0.7,
+        easing: Kinetic.Easings.EaseInOut
+      });
+      tween.play();
+      var tween1 = new Kinetic.Tween({
+        node: name_layer,
+        y: -info_layer.getHeight(),
+        duration: 0.7,
+        easing: Kinetic.Easings.EaseInOut
+      });
+      tween1.play();
+
+      var text_box = new Kinetic.Text({
+            x: 0,
+            y: 8,
+            text: text,
+            fontSize: 20,
+            fontFamily: fonts,
+            fill: '#555',
+            width: grid_size * 10,
+            height: grid_size * 7,
+            padding: 20,
+            align: 'center',
+            name: 'text_box'
+      });
+
+      var r = new Kinetic.Rect({
+            x: 0,
+            y: 0,
+            width: info_layer.getWidth(),
+            height: text_box.getHeight() + 16,
+            fill: 'Linen',
+            opacity: 1,
+            name: "init"
+      });
+      info_layer.add(r);
+      info_layer.add(text_box);
+
+      var info_grid = make_grid(grid_size/3, 0.5, info_layer.getWidth(), text_box.getHeight() + 16, 'DodgerBlue', 'DodgerBlue', 5);
+      info_layer.add(info_grid);
+    } else {
+      var tween1 = new Kinetic.Tween({
+        node: info_layer,
+        x: x - info_layer.getWidth()/2,
+        duration: 0.7,
+        easing: Kinetic.Easings.EaseInOut
+      });
+      tween1.play();
+
+      curText = info_layer.get('.text_box')[0];
+      if (curText.getText() != text) {
+        var tween2 = new Kinetic.Tween({
+            node: curText,
+            duration: 0.35,
+            opacity: 0,
+            onFinish: function() { 
+                curText.setText(text);
+                var tween3 = new Kinetic.Tween({
+                        node: curText,
+                        duration: 0.35,
+                        opacity: 1
+                });
+                tween3.play();
+              }
+        });
+        tween2.play();
+      };
+    };
+    info_layer.draw();
+}
