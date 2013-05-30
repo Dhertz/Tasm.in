@@ -1,4 +1,3 @@
-
 var grid_size = 45;
 
 var stage = new Kinetic.Stage({
@@ -185,3 +184,4 @@ canvas.onselectstart = function () { return false; }
 canvas.onmousedown = function () { return false; }
 
 newLine(grid_size, ratio, mratio, animate_layer);
+

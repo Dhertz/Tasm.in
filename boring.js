@@ -157,7 +157,6 @@ function info(text_box, text, layer) {
     layer.add(text_box);
     text_box.on('mousedown touchstart', function() {
         make_info(text_box, text);
-        console.log(text_box.getText());
      });
     text_box.on('mouseenter', function() {document.body.style.cursor = "pointer";});
     text_box.on('mouseleave', function() {document.body.style.cursor = "";});
@@ -189,6 +188,7 @@ function make_info (box, text) {
             x: 0,
             y: 8,
             text: text,
+            lineHeight: 1.1,
             fontSize: 20,
             fontFamily: fonts,
             fill: '#555',
