@@ -133,7 +133,7 @@ function newLine(grid_size, ratio, mratio, animate_layer) {
         });
         tween.play();
     };
-    animate_layer.draw();
+    animate_layer.batchDraw();
     setTimeout(function() {
         newLine(grid_size, ratio, mratio, animate_layer);
         }, Math.random()*7000);
@@ -368,7 +368,7 @@ function make_info (box, text) {
         tween2.play();
       };
     };
-    info_layer.draw();
+    info_layer.batchDraw();
 }
 
 function make_infos() {

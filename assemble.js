@@ -35,6 +35,17 @@ var ratio = animate_layer.getWidth()/animate_layer.getHeight();
 var vmiddle = grid_size*Math.round((name_layer.getWidth()/2)/grid_size)+grid_size;
 var hmiddle = grid_size*Math.round((name_layer.getHeight()/2)/grid_size) - 2*grid_size;
 
+var footer = new Kinetic.Text({
+        x: vmiddle - 6.5*grid_size,
+        y: grid_layer.getHeight() - grid_size/3,
+        text: "Tasmin Symons, mathematics student at Imperial College London. Website by Daniel Hertz.",
+        align: 'center',
+        fontSize: grid_size/4,
+        fontFamily: fonts,
+        fill: 'MintCream'
+    });
+grid_layer.add(footer);
+
 WebFont.load({
      google: {
       families: ['Open Sans:300']
